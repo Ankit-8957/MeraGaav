@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Tags for SEO -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Raise complaints related to village facilities like water, electricity, health, and roads in your village through the Mera Gaav complaint form.">
+  <meta name="keywords"
+    content="Mera Gaav, Complaint Form, Raise Complaint, Village Issues, Water Supply, Road Issues, Electricity, Health Facility">
+  <meta name="author" content="Mera Gaav Project">
+  <title>Raise Complaint | Mera Gaav</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/raiseComplaint.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Mera Gaav - Raise a Complaint</h1>
+    <p>Voice your issues. Let’s build a better village together.</p>
+  </header>
+
+  <!-- Complaint Form Section -->
+  <section class="complaint-section">
+    <h2>Complaint Form</h2>
+    <form action="/user/complaint" method="POST">
+      <div class="mb-3">
+        <label for="fullname" class="form-label">Full Name *</label>
+        <input type="text" name="complaint[villagerName]" id="fullname" class="form-control"
+          placeholder="Enter your full name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="village" class="form-label">Village *</label>
+        <select class="form-select" id="village" name="complaint[village]" required>
+          <option value="" selected disabled>Select your village</option>
+          <%for(let vill of data){%>
+            <option value="<%= vill._id%>">
+              <%= vill.name%>
+            </option>
+            <%}%>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile Number *</label>
+        <input type="tel" name="complaint[mobile]" id="mobile" class="form-control"
+          placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="complaintType" class="form-label">Complaint Type *</label>
+        <select name="complaint[title]" id="complaintType" class="form-select" required>
+          <option value="">-- Select --</option>
+          <option value="Water-Supply">Water-Supply</option>
+          <option value="electricity">Electricity</option>
+          <option value="Road-Issues">Road-Issues</option>
+          <option value="Health-Facility">Health-Facility</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="details" class="form-label">Complaint Details *</label>
+        <textarea name="complaint[description]" id="details" rows="4" class="form-control"
+          placeholder="Describe your complaint..." required></textarea>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-custom">Submit Complaint</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Mera Gaav | Designed to empower villagers</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

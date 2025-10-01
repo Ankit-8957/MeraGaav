@@ -1,0 +1,26 @@
+.navbar {
+  background-color: #2f5d47;
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+  padding: 2px;
+}
+.navig {
+  border: 2px solid black;
+}
+.navbar-toggler {
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.acc{
+  background-color: #01796F;
+  border-radius:13px ;
+}
+
+.nav-item {
+  margin-right: 1.5rem;
+}

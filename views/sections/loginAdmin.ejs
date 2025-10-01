@@ -1,0 +1,33 @@
+<% layout('./layout/boilerplate') -%>
+  <link rel="stylesheet" href="/css/loginAdmin.css">
+  <title>Mera Gaav - Login</title>
+  <% if (success && success.length> 0) { %>
+    <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+      <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+      <% if (error && error.length> 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+          <%= error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+          <div class="login-page">
+            <div class="login-container">
+              <h2>Admin Login</h2>
+              <form action="/admin/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="aadhaar" inputmode="numeric" pattern="\d{12}" maxlength="12"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,12);" placeholder="Enter 12 digit ID"
+                  required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+              </form>
+              <div class="links">
+                <a href="/admin/signup">Register</a> |
+                <a href="/forgot-password">Forgot Password?</a>
+              </div>
+            </div>
+          </div>

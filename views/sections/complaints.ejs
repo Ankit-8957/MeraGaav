@@ -1,0 +1,75 @@
+<% layout('./layout/template') -%>
+
+    <!-- Main -->
+    <main id="main" class="pt-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+        <section id="complaints" class="section">
+            <div class="container mt-5">
+                <div class="card shadow-lg p-4 rounded-4">
+                    <h2 class="text-center mb-4">Complaints Management</h2>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-primary text-center">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Villager Name</th>
+                                    <th>Complaint</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% let count=1 ;%>
+                                    <%for(let complaint of complaints){%>
+                                        <tr>
+                                            <td>
+                                                <%=count++%>
+                                            </td>
+                                            <td>
+                                                <%=complaint.villagerName%>
+                                            </td>
+                                            
+                                            <td>
+                                                <%=complaint.title%>
+                                            </td>
+                                            <td><%=complaint.date.toLocaleDateString("en-GB", { day: "2-digit" ,
+                                                    month: "2-digit" , year: "numeric" })%></td>
+                                            <td>
+                                                <% if(complaint.status==="Pending" ){ %>
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                    <% } else if(complaint.status==="In Progress" ){ %>
+                                                        <span class="badge bg-info">In Progress</span>
+                                                        <% } else { %>
+                                                            <span class="badge bg-success">Resolved</span>
+                                                            <% } %>
+                                            </td>
+                                            <td class="text-center">
+                                                <form action="/admin/complaints/<%=complaint._id%>/update?_method=PATCH"
+                                                    method="POST" class="d-inline">
+                                                    <select name="status"
+                                                        class="form-select form-select-sm d-inline w-auto">
+                                                        <option value="Pending" selected>Pending</option>
+                                                        <option value="In Progress">In Progress</option>
+                                                        <option value="Resolved">Resolved</option>
+                                                    </select>
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-success ms-2">Update</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>

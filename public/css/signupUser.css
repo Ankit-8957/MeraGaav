@@ -1,0 +1,41 @@
+/* Background wrapper */
+.signup-wrapper {
+  min-height: 89vh;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") no-repeat center center/cover;
+  padding: 20px;
+}
+
+/* Signup card styling */
+.signup-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Form heading */
+.signup-card h2 {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Form input focus */
+.signup-card .form-control:focus {
+  box-shadow: 0 0 8px #27ae60;
+  border-color: #27ae60;
+}
+
+/* Custom button */
+.btn-custom {
+  background: #27ae60;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s ease;
+  border-radius: 10px;
+}
+.btn-custom:hover {
+  background: #219150;
+}

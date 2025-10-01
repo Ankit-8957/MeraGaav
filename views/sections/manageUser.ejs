@@ -1,0 +1,59 @@
+<% layout('./layout/template') -%>
+  <!-- Main -->
+  <main id="main" class="pt-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+
+    <!-- Sections -->
+    <section id="users" class="section active">
+      <div class="card p-4">
+        <h4>Manage Users</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Village</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let user of Users){%>
+              <tr>
+                <td>
+                  <a href="/Admin/users/<%= user._id %>/details">
+                    <%=user.fullname%>
+                  </a>
+                </td>
+                <td>
+                  <%=user.village.name%>
+                </td>
+                <%if(user.isApproved){%>
+                  <td>Active</td>
+                  <% }else{%>
+                    <td>Pending</td>
+                    <%}%>
+                      <%if(user.isApproved){%>
+                        <td>
+                          <form action="/Admin/users/<%=user._id%>/delete?_method=DELETE" method="post" onsubmit="return confirm('Are you sure you want to delete this User?');"><button
+                              class="btn btn-sm btn-danger">Delete</button></form>
+                        </td>
+                        <% }else{%>
+                          <td>
+                            <form action="/Admin/users/<%=user._id%>/approve?_method=PATCH" method="post"><button
+                                class="btn btn-sm btn-success">Approve</button></form>
+                          </td>
+                          <% }%>
+              </tr>
+              <% }%>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>

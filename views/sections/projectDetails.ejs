@@ -1,0 +1,110 @@
+<!-- views/projectDetails.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= pro.title %> - Project Details
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/projectDetails.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="project-card">
+      <!-- Header -->
+      <div class="project-header mb-4">
+        <h2>
+          <%= pro.title %>
+        </h2>
+        <p>
+          <%= pro.village.name %>
+        </p>
+      </div>
+
+      <!-- Description & About -->
+      <div class="project-section">
+        <p><span class="label">Description:</span>
+          <%= pro.description || "No description provided" %>
+        </p>
+      </div>
+
+      <!-- Budget & Dates -->
+      <div class="row project-section">
+        <div class="col-md-6">
+          <p class="budget">₹<%= pro.budget ? pro.budget.toLocaleString('en-IN') : "Not set" %>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p><span class="label">Start Date:</span>
+            <% if (pro.startDate) { %>
+              <%= pro.startDate.toLocaleDateString("en-GB", { day: "2-digit" , month: "long" , year: "numeric" }) %>
+                <% } else { %>
+                  Not set
+                  <% } %>
+          </p>
+          <p><span class="label">Completion Date:</span>
+            <% if (pro.completeDate) { %>
+              <%= pro.completeDate.toLocaleDateString("en-GB", { day: "2-digit" , month: "long" , year: "numeric" }) %>
+                <% } else { %>
+                  Not set
+                  <% } %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+<% if (pro.milestones && pro.milestones.length > 0) { %>
+  <div class="project-section">
+    <h5>Milestones:</h5>
+    <% pro.milestones.forEach(milestone => { %>
+      <form action="/admin/project/<%= pro._id %>/milestone/<%= milestone._id %>/toggle" method="POST" class="milestone-card d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+        
+        <!-- Milestone name -->
+        <span><strong><%= milestone.name %></strong></span>
+
+        <!-- Status + Checkbox -->
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge <%= milestone.completed ? 'bg-success' : 'bg-warning text-dark' %>">
+            <%= milestone.completed ? 'Completed' : 'Pending' %>
+          </span>
+          <%if(currUser && currUser._id.equals(pro.admin._id)){%>
+            <input 
+            type="checkbox" 
+            name="completed" 
+            value="true" 
+            onchange="this.form.submit()" 
+            <%= milestone.completed ? 'checked' : '' %>
+          >
+          <%}%>
+          
+        </div>
+      </form>
+    <% }) %>
+  </div>
+<% } %>
+
+
+          <!-- Images -->
+          <% if (pro.image && pro.image.length> 0) { %>
+            <div class="project-section">
+              <h5>Project Images:</h5>
+              <div class="project-images">
+                <% pro.image.forEach(img=> { %>
+                  <img src="<%= img.url %>" alt="<%= img.filename || " Project Image" %>">
+                  <% }) %>
+              </div>
+            </div>
+            <% } %>
+
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

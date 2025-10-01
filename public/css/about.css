@@ -1,0 +1,59 @@
+body {
+    background-color: #fef6f0;
+    color: #1f3b2c;
+    font-family: "Playfair Display", serif;
+  }
+
+  .navbar {
+    background-color: #2f5d47;
+  }
+  .navbar-toggler {
+    border-color: white; /* Optional: Makes the border white */
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  .nav-item {
+    margin-right: 1rem;
+  }
+  .navbar-brand, .nav-link {
+    color: white !important;
+  }
+
+  .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .about-section {
+    padding: 3rem 1rem;
+    background-color: #f4e8d3;
+  }
+
+  .about-heading {
+    font-size: 2.5rem;
+    border-bottom: 3px solid #4a7c59;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .footer {
+    background-color: #1c2d25;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: 3rem;
+    
+  }

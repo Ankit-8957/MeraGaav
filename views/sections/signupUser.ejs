@@ -1,0 +1,74 @@
+<% layout('./layout/boilerplate') -%>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/signupUser.css">
+  <title>Mera Gaav | Signup</title>
+
+  <body>
+    <% if (success && success.length> 0) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+
+        <% if (error && error.length> 0) { %>
+          <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+    <div class="signup-wrapper d-flex align-items-center justify-content-center">
+      <div class="signup-card">
+        <h2 class="text-center mb-4">Signup</h2>
+        <form action="/user/signup" method="POST" enctype="multipart/form-data">
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" name="fullname" placeholder="Enter your full name"
+              required>
+          </div>
+          <!-- Mobile Number -->
+          <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number"
+              pattern="[0-9]{10}" required>
+          </div>
+          <!-- Village Name -->
+          <div class="mb-3">
+            <label for="village" class="form-label">Village Name</label>
+            <select class="form-select" id="village" name="village" required>
+              <option value="" selected disabled>Select your village</option>
+              <%for(let vill of data){%>
+                <option value="<%= vill._id%>">
+                  <%= vill.name%>
+                </option>
+                <%}%>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="image" name="image" placeholder="input you clear image"
+              required>
+          </div>
+          <!-- Username -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username"
+              required>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create a password"
+              required>
+          </div>
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-custom">Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>

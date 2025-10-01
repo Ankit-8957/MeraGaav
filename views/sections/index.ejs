@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mera Gaav | Digital Village Platform</title>
+  <meta name="description"
+    content="Mera Gaav is a digital platform to showcase village culture, projects, and progress. Explore traditions, track development, and stay connected with rural life.">
+  <meta name="keywords"
+    content="Mera Gaav, Village Website, Gram Panchayat, Rural Development, Indian Villages, Digital India">
+  <meta name="author" content="Ankit Pandey">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+  <% layout('./layout/boilerplate') -%>
+    <% if (success && success.length> 0) { %>
+      <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+        <%= success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+
+        <% if (error && error.length> 0) { %>
+          <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+
+
+            <main>
+              <!-- Hero Section -->
+              <div id="main-content">
+                <div class="text">
+                  <span>WELCOME TO MY</span>
+                  <h1 class="main-text">Gram Panchayat</h1>
+                  <p class="extra">A digital platform to showcase our village’s culture, projects, and progress. <br>
+                    Discover traditions, explore development, and stay connected with the heart of rural life.</p>
+                  <form action="/about" method="get">
+                    <button class="btn btn-success mainBtn">Learn More</button>
+                  </form>
+                </div>
+              </div>
+            </main>
+
+            <!-- About section -->
+            <section id="About">
+              <h2>🌾 About Mera Gaav</h2>
+              <p>Mera Gaav is a digital initiative to bring villages closer to the world. Our goal is to showcase the
+                culture,
+                heritage, and development of rural areas while creating a platform where people can stay connected with
+                their
+                roots.</p>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features">
+              <h2 class="section-title">✨ Key Features</h2>
+              <div class="features-container">
+                <article class="feature-card">
+                  <i class="fas fa-users"></i>
+                  <h3>Community Support</h3>
+                  <p>Connecting villagers with leaders for transparent communication.</p>
+                </article>
+                <article class="feature-card">
+                  <i class="fas fa-tractor"></i>
+                  <h3>Agriculture Updates</h3>
+                  <p>Get the latest information on crops, weather, and government schemes.</p>
+                </article>
+                <article class="feature-card">
+                  <i class="fas fa-road"></i>
+                  <h3>Infrastructure Tracking</h3>
+                  <p>Monitor ongoing development projects in your village.</p>
+                </article>
+                <article class="feature-card">
+                  <i class="fas fa-bullhorn"></i>
+                  <h3>Announcements</h3>
+                  <p>Stay updated with Panchayat news and important events.</p>
+                </article>
+              </div>
+            </section>
+
+            <!-- gallery section -->
+            <section class="gallery" id="gallery">
+              <h2>Gallery</h2>
+
+              <div class="pic">
+                <div class=" index index-1">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi6f0zQYUvb_5Gy4evKoqP8q7g670CW60DPg&s"
+                    alt="Village 1" class="slide active">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJcUgNViKpkupgb0091LjBiItWUIf1aLhLuA&s"
+                    alt="Village 2" class="slide">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC1Gbp01xoAsJzUymgzAkzvEZ57r_eYH_amA&s"
+                    alt="Village 3" class="slide">
+                  <img
+                    src="https://i.guim.co.uk/img/media/d5fbb6afdf7a70f80c9fd5f08498de23ec03c460/0_157_3353_2012/master/3353.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=c2343c467b49d2aae916df87bd47a775"
+                    alt="Village 4" class="slide">
+                </div>
+                <div class=" index index-2 hidden">
+                  <img
+                    src="https://c8.alamy.com/comp/DH1K1F/buffaloes-in-village-varanasi-uttar-pradesh-india-asia-DH1K1F.jpg"
+                    alt="Village 5" class="slide">
+                  <img src="https://t4.ftcdn.net/jpg/03/71/14/65/360_F_371146519_OWEake9cQRtOlxmvfk7stLAFaDRUnB62.jpg"
+                    alt="Village 6" class="slide">
+                  <img src="https://static.toiimg.com/photo/52671583/.jpg" alt="Village 7" class="slide">
+                  <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/06/ed/01/55.jpg"
+                    alt="Village 8" class="slide">
+                </div>
+                <div class="index index-3 hidden">
+                  <img src="https://cdn.pixabay.com/photo/2021/08/18/09/02/women-6555065_1280.jpg" alt="Village 9"
+                    class="slide">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIJauVgwWCMO1kyq6Uj8HodMdQ84jWmYorg&s"
+                    alt="Village 10" class="slide">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5HJPx0YcdfcSaFT_bjnb_qkq-rZitoKIkmg&s"
+                    alt="Village 11" class="slide">
+                  <img
+                    src="https://researchmatters.in/sites/researchmatters.in/files/styles/large_800w_scale/public/img-20190415-wa0008.jpg?itok=bO-W6CLr"
+                    alt="Village 12" class="slide">
+                </div>
+
+
+
+              </div>
+              <div class="show-btn-container">
+                <button class="show-more-btn">Show More</button>
+              </div>
+            </section>
+            <footer class="footer-contact">
+              <div class="form-container">
+                <form action="/contact" method="post">
+                  <h2>Contact</h2>
+                  <label for="name">Full Name</label>
+                  <input type="text" id="name" name="name" placeholder="Your name" />
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" placeholder="Your email" />
+
+                  <label for="message">Message</label>
+                  <textarea id="message" rows="4" name="message" placeholder="Write your message..."></textarea>
+
+                  <button type="submit">Send</button>
+                </form>
+              </div>
+
+            </footer>
+
+
+</body>
+
+</html>

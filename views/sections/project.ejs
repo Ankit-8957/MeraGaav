@@ -1,0 +1,30 @@
+<% layout('./layout/template') -%>
+  <!-- Main -->
+  <main id="main" class="pt-5">
+    
+    <nav aria-label="breadcrumb" class="mb-3 d-flex justify-content-between align-items-center">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+      <%if(currUser && currUser.role == "Admin"){%>
+        <div>
+        <form action="/admin/project/new" method="get">
+          <button class="btn btn-primary">Add New Project</button>
+        </form>
+      </div>
+      <%}%>
+      
+    </nav>
+
+    <section id="projects" class="section">
+      <div class="card p-4">
+        <h4>Projects</h4>
+        <% for(let project of projects){ %>
+          <p>•<a href="/<%=currUser.role%>/project/<%=project._id%>/projectDetail"><%= project.title %> – Budget: ₹<%=project.budget.toLocaleString("en-IN")%></a>  </p>
+          <%}%>
+      </div>
+
+    </section>
+  </main>
+   

@@ -1,0 +1,33 @@
+<nav class="nav flex-column mt-4">
+  <%if(currUser && currUser.role == "Admin"){%>
+  <a class="nav-link" href="/admin/dashboard"><i class="fas fa-house me-2"></i> Home</a>  
+  <a class="nav-link" href="/admin/manageUser"><i class="fas fa-users me-2"></i> Manage Users</a> 
+  <a class="nav-link" href="/admin/project"><i class="fas fa-diagram-project me-2"></i> Projects</a>
+  <a class="nav-link" href="/admin/budget"><i class="fas fa-coins me-2"></i> Budgets</a>  
+  <a class="nav-link" href="/admin/complaints"><i class="fas fa-exclamation-triangle me-2"></i>Complaints</a>
+  <a class="nav-link" href="/admin/schema"><i class="fas fa-globe me-2"></i>schema</a>
+  <%}%>
+  <%if(currUser && currUser.role == "user"){%>
+  <a class="nav-link" href="/user/dashboard"><i class="fas fa-house me-2"></i> Home</a>   
+  <a class="nav-link" href="/user/project"><i class="fas fa-diagram-project me-2"></i> Projects</a>
+  <a class="nav-link" href="/user/budget"><i class="fas fa-coins me-2"></i> Budgets</a>  
+  <a class="nav-link" href="/user/complaint"><i class="fas fa-exclamation-triangle me-2"></i>Complaint</a>
+  <a class="nav-link" href="/user/schema"><i class="fas fa-globe me-2"></i>schema</a>
+  <%}%>
+</nav>
+
+<script>
+  const sidebarLinks = document.querySelectorAll(".nav-link");
+  const currentPath = window.location.pathname;
+  sidebarLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active");
+    }
+  });
+  sidebarLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      sidebarLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+    });
+  });
+</script>

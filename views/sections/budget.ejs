@@ -1,0 +1,40 @@
+<% layout('./layout/template') -%>
+
+    <!-- Main -->
+    <main id="main" class="pt-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+          </nav>
+        <section id="budgets" class="section">
+            <div class="card p-4 table-responsive">
+                <h4>Budgets</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Requested</th>
+                            <th>Approved</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <%for(let budget of budgets){%>
+                        <tr>
+                            <td><a class="bud-name" href="/<%=currUser.role%>/budget/<%=budget._id%>/budgetDetail"><%=budget.projectName%></a></td>
+                            <td>₹<%=budget.requestedBudget.toLocaleString("en-IN")%></td>
+                            <td>₹<%=budget.approvedBudget.toLocaleString("en-IN")%></td>
+                            <td><%=budget.status%></td>
+                        </tr>
+                     <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+     

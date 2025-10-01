@@ -1,0 +1,72 @@
+<% layout('./layout/template') -%>
+  <section class="container schemas-section">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+      <h3 class="mb-2 mb-md-0">All Schemas</h3>
+      <%if(currUser && currUser.role=="Admin" ){%>
+        <a href="/Admin/schema/new" class="btn btn-success">
+          <i class="bi bi-plus-circle"></i> Add Schema
+        </a>
+        <%}%>
+
+    </div>
+
+    <!-- Schemas Table -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-success">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>start At</th>
+            <th>End At</th>
+            <%if(currUser && currUser.role=="Admin" ){%>
+              <th>Actions</th>
+              <%}%>
+          </tr>
+        </thead>
+        <tbody>
+          <%let i=1;%>
+            <%for(let schema of schemas){%>
+              <tr>
+                <td>
+                  <%=i++%>
+                </td>
+                <td>
+                  <%= schema.title %>
+                </td>
+                <td>
+                  <%=schema.description%>
+                </td>
+                <td>
+                  <%= schema.startDate.toLocaleDateString() %>
+                </td>
+                <td>
+                  <%= schema.endDate.toLocaleDateString() %>
+                </td>
+                <%if(currUser && currUser.role=="Admin" ){%>
+                  <td class="d-flex gap-2 flex-wrap">
+
+                    <form action="/Admin/schema/<%=schema._id%>/edit" method="get">
+                      <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                      </button>
+                    </form>
+
+
+                    <form action="/Admin/schema/<%=schema._id%>/delete?_method=DELETE" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this schema?');">
+                      <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="fa-solid fa-trash"></i> Delete
+                      </button>
+                    </form>
+                  </td>
+                  <%}%>
+              </tr>
+              <%}%>
+
+        </tbody>
+      </table>
+     
+    </div>
+  </section>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gram Pradhan Signup - Mera Gaav</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script defer src="/js/liveImage.js"></script>
+
+</head>
+<% layout('./layout/boilerplate') -%>
+
+    <body>
+        <% if (success && success.length> 0) { %>
+            <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                <%= success %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
+
+                <% if (error && error.length> 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                        <%= error %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                        <div class="signup-page">
+                            <div class="signup-container">
+                                <h2>Gram Pradhan Signup</h2>
+                                <form action="/admin/signup" method="POST" enctype="multipart/form-data"
+                                    class="needs-validation" novalidate>
+
+                                    <h3>Personal Info</h3>
+                                    <div>
+                                        <input type="text" name="admin[name]" placeholder="Full Name"
+                                            class="form-control " required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            Please enter your name.
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <input type="date" name="admin[DOB]" placeholder="Date of Birth"
+                                            class="form-control" required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            your DOB.
+                                        </div>
+                                    </div>
+
+                                    <select name="admin[gender]" class="form-control " required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+
+                                    <h3>Contact Info</h3>
+                                    <div>
+
+                                        <input type="text" name="admin[phoneNumber]" placeholder="Phone Number" required
+                                            class="form-control">
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            your phone number.
+                                        </div>
+                                    </div>
+                                    <div>
+
+                                        <input type="email" name="admin[email]" placeholder="Email (optional)">
+                                    </div>
+                                    <div>
+                                        <label for="village" class="form-label">Village Name</label>
+                                        <select class="form-select" id="village" name="admin[village]" required>
+                                            <option value="" selected disabled>Select your village</option>
+                                            <%for(let vill of data){%>
+                                                <option value="<%= vill._id%>">
+                                                    <%= vill.name%>
+                                                </option>
+                                                <%}%>
+                                        </select>
+                                    </div>
+                                    <div>
+
+                                        <input type="text" name="admin[address]"
+                                            placeholder="Village, District, State, Pincode" class="form-control "
+                                            required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            you address.
+                                        </div>
+                                    </div>
+
+                                    <h3>Government ID</h3>
+                                    <div>
+
+                                        <input type="text" name="admin[aadhaar]" inputmode="numeric" pattern="\d{12}"
+                                            maxlength="12"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,12);"
+                                            placeholder="Aadhaar Number" class="form-control " required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            your aadhaar number.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="text" name="admin[voterId]" placeholder="Voter ID "
+                                            class="form-control " required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            your voterId.
+                                        </div>
+                                    </div>
+                                    <div>
+                                       <h3>Your Photo</h3> 
+                                       <input type="file" name="image" id="image" required>
+                                    </div>
+                                    <h3>Login Credentials</h3>
+                                    <div>
+
+                                        <input type="text" name="username" placeholder="Username" class="form-control "
+                                            required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Please enter
+                                            username.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="password" name="password" id="password" placeholder="Password"
+                                            class="form-control " required>
+                                        <div id="password-feedback" class="invalid-feedback">Please enter password.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="password" name="confirmPassword" id="confirmPassword"
+                                            placeholder="Confirm Password" class="form-control" required>
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">Enter right
+                                            password.
+                                        </div>
+                                    </div>
+
+
+                                    <button type="submit">Signup</button>
+                                    <p class="links">Already have an account? <a href="/admin/login">Login</a></p>
+                                </form>
+                            </div>
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                            crossorigin="anonymous"></script>
+                        <script src="/js/validate.js"></script>
+                        <script src="/js/pass.js"></script>
+
+    </body>
+
+</html>

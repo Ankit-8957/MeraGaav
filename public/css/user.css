@@ -1,0 +1,163 @@
+/* ===== Global Styles ===== */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ===== User List Item ===== */
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 10px 0;
+  background: #f9f9f9;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px solid #eee;
+}
+
+span {
+  flex: 1;
+  min-width: 150px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+}
+
+/* ===== Button Group ===== */
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+form {
+  margin: 0;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Approve button */
+button.approve {
+  background: #4caf50;
+  color: #fff;
+}
+button.approve:hover {
+  background: #45a049;
+}
+
+/* Delete button */
+button.delete {
+  background: #f44336;
+  color: #fff;
+}
+button.delete:hover {
+  background: #d32f2f;
+}
+
+/* Details button */
+button.details {
+  background: #007bff;
+  color: #fff;
+}
+button.details:hover {
+  background: #186ac1;
+}
+
+/* Empty message */
+p {
+  color: #666;
+  font-style: italic;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  span {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .button-group {
+    width: 100%;
+    justify-content: center;  /* center buttons */
+  }
+
+  button {
+    flex: 1; /* equal width */
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 13px;
+    padding: 8px;
+  }
+}

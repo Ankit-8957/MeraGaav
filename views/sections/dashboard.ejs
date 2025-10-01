@@ -1,0 +1,63 @@
+<% layout('./layout/template') -%>
+
+<% if (success.length > 0) { %>
+  <div class="alert alert-success alert-dismissible fade show flash-message" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<% if (error.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show flash-message" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+
+    <!-- Main -->
+    <main id="main" class="pt-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+
+        <!-- Sections -->
+      <section class="village-section section active">
+    <div class="village-header">
+      <h2>About Our Village</h2>
+      <p>Details about Gram Pradhan, culture, and history</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="card">
+        <h3>Gram Pradhan</h3>
+        <p>Shri Ram Kumar Singh is the current Gram Pradhan of our village. He is actively working towards improving
+           education, healthcare, and infrastructure for all villagers.</p>
+      </div>
+
+      <div class="card">
+        <h3>Village Culture</h3>
+        <p>Our village is known for its traditional festivals, folk music, and cultural values. We celebrate Holi,
+           Diwali, and Makar Sankranti with unity and joy.</p>
+      </div>
+
+      <div class="card">
+        <h3>Village History</h3>
+        <p>The village has a rich history dating back 200 years. It has been home to generations of farmers and artisans
+           who have preserved the heritage and traditions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Specialities</h3>
+        <p>Our village is famous for organic farming, pottery work, and handloom weaving. Many visitors come to explore
+           the authentic lifestyle of our community.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

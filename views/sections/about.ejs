@@ -1,0 +1,65 @@
+
+  <% layout('./layout/boilerplate') -%>
+  <link rel="stylesheet" href="/css/about.css">
+  <% if (success && success.length> 0) { %>
+      <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+        <%= success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+
+        <% if (error && error.length> 0) { %>
+          <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-content text-center">
+      <h2 class="about-heading">About Our Gram Panchayat</h2>
+      <h4>🌿 About Our Gram Panchayat – Saringpur</h4>
+      <p>
+        
+        Saringpur Gram Panchayat is a vibrant and evolving local government body situated in the heart of rural India.
+        Serving as the administrative backbone for five villages – Saringpur, Mahraur, Takia-Pe, Kanera, and Sahpurwa –
+        this Panchayat plays a vital role in driving development, ensuring governance, and uplifting the lives of its
+        people.
+      </p>
+      <h4>🌾 The Spirit of Rural Unity</h4>
+      <p>
+        
+        The five villages under Saringpur Panchayat are not just geographically connected, but also culturally united.
+        Each village brings its own traditions, strengths, and contributions, making the Panchayat a collective force of
+        rural progress. From the lush green fields of Mahraur to the vibrant community gatherings of Kanera, the unity
+        and cooperation among these villages set a strong foundation for inclusive growth.
+      </p>
+      <h4>🏛 What the Panchayat Does</h4>
+      <p>
+        
+        Our Gram Panchayat is responsible for managing basic services like:
+
+        Clean water and sanitation
+
+        Primary health care and nutrition
+
+        Rural road and street light maintenance
+
+        School education and scholarship distribution
+
+        Managing local disputes through Panchayat meetings
+
+        Organizing welfare schemes like PM Awas Yojana, NREGA, and Old Age Pension
+
+        The Panchayat also plays a pivotal role during emergencies, such as natural disasters or public health
+        outbreaks, ensuring timely support and resources reach every family.
+      </p>
+      <h4>📊 Transparency and Budget Allocation</h4>
+      <p>
+        
+        Every year, the Gram Panchayat holds a Gram Sabha where the community is informed about passed budgets, upcoming
+        development works, and pending approvals. The transparency in fund allocation and use builds trust among
+        villagers and encourages active participation in decision-making.
+      </p>
+    </div>
+  </section>

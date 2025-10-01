@@ -1,0 +1,131 @@
+<!-- views/budgetDetails.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Details - <%= bud.projectName %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .budget-card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-top: 50px;
+      transition: transform 0.3s ease;
+    }
+
+    .budget-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .budget-header h2 {
+      font-weight: 700;
+      color: #343a40;
+    }
+
+    .budget-header p {
+      font-size: 0.95rem;
+      color: #6c757d;
+    }
+
+    .budget-amount {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .requested {
+      background-color: #e9f7ef;
+      color: #28a745;
+    }
+
+    .approved {
+      background-color: #e8f0fe;
+      color: #0d6efd;
+    }
+
+    .status-badge {
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .status-approved {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .status-pending {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .status-rejected {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .budget-section {
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="budget-card">
+      <!-- Header -->
+      <div class="budget-header mb-4">
+        <h2><%= bud.projectName %></h2>
+        <p>Budget Details</p>
+      </div>
+
+      <!-- Requested & Approved Budget -->
+      <div class="row budget-section">
+        <div class="col-md-6 mb-3">
+          <p class="budget-amount requested">Requested: ₹<%= bud.requestedBudget.toLocaleString('en-IN') %></p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <p class="budget-amount approved">Approved: ₹<%= bud.approvedBudget.toLocaleString('en-IN') %></p>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="budget-section">
+        <p class="label">Status:</p>
+        <span class="status-badge <%= bud.status.toLowerCase() === 'approved' ? 'status-approved' : (bud.status.toLowerCase() === 'pending' ? 'status-pending' : 'status-rejected') %>">
+          <%= bud.status %>
+        </span>
+      </div>
+
+      <!-- Description -->
+      <% if (bud.description) { %>
+      <div class="budget-section">
+        <p class="label">Description:</p>
+        <p><%= bud.description %></p>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

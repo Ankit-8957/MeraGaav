@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard | Mera Gaav</title>
+    <meta name="description"
+        content="Admin dashboard for Mera Gaav project: manage users, projects, budgets, complaints, and reports." />
+    <meta name="author" content="Ankit Pandey" />
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="/css/adminDashboard.css">
+
+</head>
+
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <button class="btn btn-outline-primary d-lg-none" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <a class="navbar-brand fw-bold text-primary ms-2">Mera Gaav</a>
+            <div class="d-flex align-items-center gap-3 ms-auto">
+                
+                <button id="userBtn"
+                    class="rounded-circle  text-white d-flex align-items-center justify-content-center ">
+                    <% if (!currUser || !currUser.image || currUser.image.trim() === "") { %>
+                        <i class="fa-solid fa-user"></i>
+                        <% } else { %>
+                            <img src="<%= currUser.image %>" alt="Profile" class="rounded-circle"
+                                style="width:40px; height:40px; object-fit:cover;">
+                            <% } %>
+                </button>
+
+
+                <div id="profilePanel" class="profile-panel shadow-lg">
+                    <button id="closePanel" class="btn-close"></button>
+
+                    <div class="text-center mt-4">
+                        <% if (!currUser || !currUser.image || currUser.image.trim() === "") { %>
+                            <!-- Default avatar -->
+                            <div
+                                class="avatar-placeholder bg-primary text-white d-flex align-items-center justify-content-center mx-auto">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <% } else { %>
+                                <!-- Uploaded profile image -->
+                                <img src="<%= currUser.image %>" alt="Profile Image"
+                                    class="avatar-img rounded-circle mx-auto d-block">
+                                <% } %>
+
+                                    <h5 class="mt-3 fw-bold text-primary">
+                                        <%= currUser.name %>
+                                    </h5>
+                                    <p class="text-muted small mb-0">Village: <%= currUser.village.name %>
+                                    </p>
+                    </div>
+
+                    <hr>
+
+                    <!-- Profile Details -->
+                    <div class="profile-details px-3">
+                        <%if(currUser && currUser.role=="Admin" ){%>
+                            <p><strong>Phone:</strong> +91 <%= currUser.phoneNumber %>
+                            </p>
+                            <p><strong>Aadhaar No:</strong>
+                                <%= currUser.aadhaar %>
+                            </p>
+                            <p><strong>Voter Id:</strong>
+                                <%= currUser.voterId %>
+                            </p>
+                            <p><strong>Address:</strong>
+                                <%= currUser.address %>
+                            </p>
+                            <%}else{%>
+                                <p><strong>Phone:</strong> +91 <%= currUser.mobile %>
+                                </p>
+                                <%}%>
+                    </div>
+                    <br><br>
+                    <hr>
+                    <div class="text-center mt-3">
+                        <form action="/loggedOut" method="get">
+                            <button type="submit" class="btn btn-danger w-100">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <aside id="sidebar"><%-include('../include/sidebar.ejs')-%></aside>
+    <section>
+        <%-body %>
+    </section>
+    <!-- Overlay for sidebar -->
+    <div class="overlay"></div>
+
+    <script src="/js/overlays.js"></script>
+
+    <script>
+        const userBtn = document.getElementById('userBtn');
+        const profilePanel = document.getElementById('profilePanel');
+        const closePanel = document.getElementById('closePanel');
+
+        userBtn.addEventListener('click', () => {
+            profilePanel.style.right = '0'; // slide in
+        });
+
+        closePanel.addEventListener('click', () => {
+            profilePanel.style.right = '-300px'; // slide out
+        });
+    </script>
+</body>
+
+</html>

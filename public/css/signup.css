@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100%;
+    background-color:#8fdc58;
+}
+
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") no-repeat center center/cover;
+}
+
+.signup-container {
+    background-color: #fff;
+    padding: 40px 30px;
+    /* border-radius: 15px; */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 500px;
+    margin: 5px;
+    
+}
+
+.signup-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.signup-container h3 {
+    margin-top: 20px;
+    color: #555;
+    font-size: 16px;
+}
+
+.signup-container input,
+.signup-container select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.signup-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #6ab04c;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.signup-container button:hover {
+    background-color: #4a8c2b;
+}
+
+.signup-container .links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.signup-container .links a {
+    color: #6ab04c;
+    text-decoration: none;
+}
+
+.signup-container .links a:hover {
+    color: #4a8c2b;
+}
+#camera-container {
+    display: none; /* hidden initially */
+    position: relative;
+    width: 320px;
+    height: 240px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+/* Responsive */
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 30px 20px;
+    }
+}
+.signup-container {
+    background-color: #fff;
+    padding: 40px 30px;
+    /* border-radius: 15px; */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 90%;           /* default width for smaller screens */
+    max-width: 600px;     /* wider on desktop */
+    margin: auto;
+}
+
+/* Desktop: make it wider */
+@media (min-width: 992px) {
+    .signup-container {
+        width: 50%;       /* wider for large screens */
+        max-width: 700px; /* limit maximum width */
+    }
+}
+
+/* Tablet / Mobile: smaller width */
+@media (max-width: 768px) {
+    .signup-container {
+        width: 90%;
+        max-width: 500px;
+        padding: 30px 20px;
+    }
+}

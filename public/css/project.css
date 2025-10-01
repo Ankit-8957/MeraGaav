@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Playfair Display", serif;
+    background: #f3e0c2;
+  }
+
+  .project-header {
+    background-color: #2f5d47;
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .animated-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 3rem;
+  }
+
+  .animated-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+  }
+
+  .animated-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .animated-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 5px solid #2f5d47;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-body h3 {
+    margin: 0;
+    color: #2f5d47;
+    font-size: 1.5rem;
+  }
+
+  .card-body p {
+    margin-top: 0.8rem;
+    color: #444;
+  }
+
+  .btn-details {
+    background-color: #2f5d47;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 0.5rem 1.2rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-details:hover {
+    background-color: #1e4032;
+  }
+
+  @media (max-width: 768px) {
+    .project-header h1 {
+      font-size: 1.8rem;
+    }
+  }

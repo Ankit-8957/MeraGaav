@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+}
+.budget-section {
+    padding: 2rem;
+    background-color: #f3e0c2;
+    color: #264a3e;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .budget-category {
+    margin-bottom: 3rem;
+  }
+  
+  .category-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #264a3e;
+    padding-bottom: 0.5rem;
+  }
+  
+  .budget-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .budget-card {
+    background-color: #fff8ec;
+    border: 2px solid #264a3e;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .budget-card h3 {
+    margin-top: 0;
+  }
+  
+  .status {
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.4rem;
+    border-radius: 6px;
+    text-align: center;
+  }
+  
+  .status.passed {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  @media (max-width: 768px) {
+    .budget-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .budget-card {
+      width: 90%;
+    }
+  }
+  
