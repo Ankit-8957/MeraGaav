@@ -15,34 +15,34 @@
           <div class="card-body p-4">
             <h3 class="text-center mb-4">edit schema</h3>
 
-            <!-- Add Schema Form -->
+            
             <form action="/Admin/schema/<%=schema._id%>/edit?_method=PUT" method="POST">
               
-              <!-- Schema Title -->
+              
               <div class="mb-3">
                 <label for="title" class="form-label">Schema Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Enter schema title" value="<%=schema.title%>" required>
               </div>
 
-              <!-- Schema Description -->
+          
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter schema description"  required><%= schema.description %></textarea>
               </div>
 
-              <!-- Start Date -->
+             
               <div class="mb-3">
                 <label for="startDate" class="form-label">Start Date</label>
                 <input type="date" class="form-control" id="startDate" name="startDate" value="<%= schema.startDate ? schema.startDate.toISOString().split('T')[0] : '' %>"required>
               </div>
 
-              <!-- End Date -->
+              
               <div class="mb-3">
                 <label for="endDate" class="form-label">End Date</label>
                 <input type="date" class="form-control" id="endDate" name="endDate" value="<%= schema.endDate ? schema.endDate.toISOString().split('T')[0] : '' %>">
               </div>
 
-              <!-- Submit Button -->
+          
               <div class="d-grid">
                 <button type="submit" class="btn btn-success rounded-pill">
                   Save Schema
@@ -50,7 +50,6 @@
               </div>
 
             </form>
-            <!-- End Form -->
 
           </div>
         </div>
