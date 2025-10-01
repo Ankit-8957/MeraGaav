@@ -22,7 +22,7 @@ const adminRouter = require("./routes/admin.js");
 const userRouter = require("./routes/user.js");
 const budget = require("./model/budget.js");
 const ExpressError = require("./ExpressError.js");
-const {asyncWrap} = require("./middleware.js");
+const { asyncWrap } = require("./middleware.js");
 
 
 main().then(() => {
@@ -43,16 +43,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 
-const store =  MongoStore.create({
-     mongoUrl: process.env.DB_URL,
-     crypto: {
+const store = MongoStore.create({
+    mongoUrl: process.env.DB_URL,
+    crypto: {
         secret: process.env.SECRET
-     },
-     touchAfter: 24*3600,
+    },
+    touchAfter: 24 * 3600,
 });
-store.on("error",()=>{
-    console.log("Error in Mongo Session Store : ",err);
-    
+store.on("error", () => {
+    console.log("Error in Mongo Session Store : ", err);
+
 })
 app.use(session({
     store: store,
@@ -134,22 +134,24 @@ app.get("/loggedOut", (req, res, next) => {
         res.redirect("/");
     })
 });
-app.post("/contact", asyncWrap(async(req, res) => {
+app.post("/contact", asyncWrap(async (req, res) => {
     let { name, email, message } = req.body;
-        let transporter = nodemailer.createTransport({
-            service: "Gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
 
-        let mailOptions = {
-            from: `"${name}" <${email}>`,
-            to: process.env.EMAIL_USER, // receive messages here
-            subject: `New message from ${name} via Mera Gaav`,
-            text: message,
-            html: `
+    let mailOptions = {
+        from: `"${name}" <${email}>`,
+        to: process.env.EMAIL_USER, // receive messages here
+        subject: `New message from ${name} via Mera Gaav`,
+        text: message,
+        html: `
   <div style="font-family: Arial, sans-serif; line-height:1.6; color: #333; padding: 20px; background-color: #f8f9fa;">
     <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
       <h2 style="color: #28a745; margin-bottom: 10px;">New Message from Mera Gaav Contact Form</h2>
@@ -163,18 +165,18 @@ app.post("/contact", asyncWrap(async(req, res) => {
   </div>
   `};
 
-        await transporter.sendMail(mailOptions);
-        req.flash("success","We recieved your message successfully. Thanks for message!!");
-        res.redirect("/");
-    
+    await transporter.sendMail(mailOptions);
+    req.flash("success", "We recieved your message successfully. Thanks for message!!");
+    res.redirect("/");
+
 }));
-app.all(/.*/,(req,res,next)=>{
-    next(new ExpressError(404,"Page not found"));
+app.all(/.*/, (req, res, next) => {
+    next(new ExpressError(404, "Page not found"));
 })
-app.use((err,req,res,next)=>{
-    let {status = 500 ,message = "Some error occuried"} = err;
+app.use((err, req, res, next) => {
+    let { status = 500, message = "Some error occuried" } = err;
     // req.flash("error",message);
-    res.status(status).render("sections/error.ejs",{ status, message, error: err });
+    res.status(status).render("sections/error.ejs", { status, message, error: err });
 });
 
 app.listen(8080, () => {
