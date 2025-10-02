@@ -137,23 +137,31 @@
             </section>
             <footer class="footer-contact">
               <div class="form-container">
-                <form action="/contact" method="post">
+                <form id="contactForm">
                   <h2>Contact</h2>
                   <label for="name">Full Name</label>
                   <input type="text" id="name" name="name" placeholder="Your name" />
                   <label for="email">Email Address</label>
                   <input type="email" id="email" name="email" placeholder="Your email" />
-
                   <label for="message">Message</label>
                   <textarea id="message" rows="4" name="message" placeholder="Write your message..."></textarea>
-
                   <button type="submit">Send</button>
                 </form>
+
               </div>
 
             </footer>
 
-
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+            </script>
+            <script type="text/javascript">
+              (function () {
+                emailjs.init({
+                  publicKey: "WPbs_d9unEkEULgxn",
+                });
+              })();
+            </script>
+            <script src="/js/mail.js"></script>
 </body>
 
 </html>

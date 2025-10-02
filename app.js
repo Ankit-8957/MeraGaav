@@ -23,7 +23,7 @@ const userRouter = require("./routes/user.js");
 const budget = require("./model/budget.js");
 const ExpressError = require("./ExpressError.js");
 const { asyncWrap } = require("./middleware.js");
-const {sendMail} = require("./mailsender.js");
+
 
 main().then(() => {
     console.log("Database is connected!!");
@@ -134,19 +134,7 @@ app.get("/loggedOut", (req, res, next) => {
         res.redirect("/");
     })
 });
-app.post("/contact", asyncWrap(async (req, res) => {
-    let { name, email, message } = req.body;
-   try {
-        sendMail(name,email,message);
-        req.flash("success","thanks for sending feedback")
-        res.redirect("/");
 
-   } catch (error) {
-        console.log("error",error)
-        req.flash("error","something went wrong")
-        res.redirect("/");
-   }
-}));
 app.all(/.*/, (req, res, next) => {
     next(new ExpressError(404, "Page not found"));
 })
