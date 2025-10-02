@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mera Gaav | Reset Password</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+  <% layout('./layout/boilerplate') -%>
+
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-sm w-100" style="max-width: 400px;">
+      <h2 class="text-center mb-4">Reset Password</h2>
+
+      <% if (success && success.length > 0) { %>
+        <div class="alert alert-success">
+          <%= success %>
+        </div>
+      <% } %>
+
+      <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form action="/Admin/reset-password/<%= token %>" method="POST">
+        <div class="mb-3">
+          <label for="password" class="form-label">New Password</label>
+          <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Reset Password</button>
+      </form>
+
+      <div class="mt-3 text-center">
+        <a href="/Admin/login" class="text-decoration-none">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -10,15 +10,16 @@ const Project = require("../model/project.js");
 const budget = require("../model/budget.js");
 const Schema = require("../model/schema.js");
 const ExpressError = require("../ExpressError.js");
-
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 
 module.exports.adminSignup = async (req, res) => {
     let data = await village.find({});
     res.render("sections/signup.ejs", { data });
 }
-module.exports.adminSignupPost = async(req, res) => { 
-    let { username, password, admin: adminDetails } = req.body;   
+module.exports.adminSignupPost = async (req, res) => {
+    let { username, password, admin: adminDetails } = req.body;
     const newAdmin = new admin({
         ...adminDetails,
         username,
@@ -100,7 +101,7 @@ module.exports.newProjectPost = async (req, res) => {
     if (!project) {
         throw new ExpressError(400, "Please enter valid data");
     }
-    
+
     // console.log(result)
     if (project.milestones) {
         if (!Array.isArray(project.milestones)) {
@@ -147,7 +148,7 @@ module.exports.newSchema = (req, res) => {
 
 module.exports.newSchemaPost = async (req, res) => {
     const uservillage = await req.user.populate("village");
-    let { title, description, startDate, endDate, } = req.body;    
+    let { title, description, startDate, endDate, } = req.body;
     const newSchema = new Schema({ title, description, startDate, endDate, village: uservillage.village });
     await newSchema.save();
     res.redirect("/Admin/schema");
@@ -185,7 +186,103 @@ module.exports.projectDetails = async (req, res) => {
     let pro = await Project.findById(id).populate("village");
     res.render("sections/projectDetails.ejs", { pro });
 }
+module.exports.forgetPass = (req, res) => {
+    res.render("sections/forgetPass.ejs");
+}
+module.exports.forgetPassPost = async (req, res) => {
+    const { email } = req.body;
+    const user = await admin.findOne({ email });
 
+
+    if (!user) {
+        req.flash("error", "No account with that email exists.");
+        return res.redirect("/Admin/forgot-password");
+    }
+
+    // Step 3: Generate a reset token
+    const token = crypto.randomBytes(32).toString("hex");
+
+    user.resetToken = token;
+    user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry
+
+    await user.save();
+
+    // Step 4: Send email with reset link
+    const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+    const resetURL = `http://${req.headers.host}/Admin/reset-password/${token}`;
+
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: user.email,
+        subject: "Mera Gaav | Password Reset",
+        html: `
+      <h3>Password Reset Request</h3>
+      <p>Click the link below to reset your password. This link will expire in 1 hour.</p>
+
+      <a href="${resetURL}" 
+   style="display:inline-block;
+          padding:12px 20px;
+          background-color:#007BFF;
+          color:#ffffff;
+          text-decoration:none;
+          border-radius:6px;
+          font-weight:bold;">
+   Reset Password
+</a>
+    `
+    };
+
+    await transporter.sendMail(mailOptions);
+    req.flash("success", "Password reset link sent to your email.");
+    res.redirect("/Admin/login");
+}
+module.exports.resetPass = async (req, res) => {
+    const user = await admin.findOne({
+        resetToken: req.params.token,
+        resetTokenExpiry: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        req.flash("error", "Token is invalid or has expired.");
+        return res.redirect("/Admin/forgot-password");
+    }
+
+    res.render("sections/resetPass.ejs", { token: req.params.token });
+}
+module.exports.resetPassPost = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    // Find admin by reset token and check expiry
+    const user = await admin.findOne({
+        resetToken: token,
+        resetTokenExpiry: { $gt: Date.now() } // token not expired
+    });
+
+    if (!user) {
+        req.flash("error", "Token is invalid or expired.");
+        return res.redirect("/Admin/forgot-password");
+    }
+
+    // Set new password using Passport-Local Mongoose
+    await user.setPassword(password);
+
+    // Remove token fields
+    user.resetToken = undefined;
+    user.resetTokenExpiry = undefined;
+
+    await user.save(); // save document with new hashed password
+
+    req.flash("success", "Password reset successfully! You can now login.");
+    res.redirect("/Admin/login");
+}
 module.exports.milestone = async (req, res) => {
     try {
         let { proId, mileId } = req.params;

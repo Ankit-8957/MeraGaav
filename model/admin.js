@@ -26,6 +26,13 @@ const adminSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // basic email validation
+    },
     aadhaar: {
         type: String,
         required: true,
@@ -47,10 +54,12 @@ const adminSchema = new Schema({
     image: {
         type: String
     },
-    role:{
+    role: {
         type: String,
         default: "Admin"
-    }
+    },
+    resetToken: String,
+    resetTokenExpiry: Date
 });
 adminSchema.plugin(passportLocalMongoose);
 
