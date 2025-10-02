@@ -23,7 +23,7 @@ const userRouter = require("./routes/user.js");
 const budget = require("./model/budget.js");
 const ExpressError = require("./ExpressError.js");
 const { asyncWrap } = require("./middleware.js");
-
+const {sendMail} = require("./mailsender.js");
 
 main().then(() => {
     console.log("Database is connected!!");
@@ -136,39 +136,16 @@ app.get("/loggedOut", (req, res, next) => {
 });
 app.post("/contact", asyncWrap(async (req, res) => {
     let { name, email, message } = req.body;
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
+   try {
+        sendMail(name,email,message);
+        req.flash("success","thanks for sending feedback")
+        res.redirect("/");
 
-    let mailOptions = {
-        from: `"${name}" <${email}>`,
-        to: process.env.EMAIL_USER, // receive messages here
-        subject: `New message from ${name} via Mera Gaav`,
-        text: message,
-        html: `
-  <div style="font-family: Arial, sans-serif; line-height:1.6; color: #333; padding: 20px; background-color: #f8f9fa;">
-    <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-      <h2 style="color: #28a745; margin-bottom: 10px;">New Message from Mera Gaav Contact Form</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <p style="background-color: #f1f1f1; padding: 10px; border-radius: 5px;">${message}</p>
-      <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-      <p style="font-size: 12px; color: #888;">This message was sent via your Mera Gaav website contact form.</p>
-    </div>
-  </div>
-  `};
-
-    await transporter.sendMail(mailOptions);
-    req.flash("success", "We recieved your message successfully. Thanks for message!!");
-    res.redirect("/");
-
+   } catch (error) {
+        console.log("error",error)
+        req.flash("error","something went wrong")
+        res.redirect("/");
+   }
 }));
 app.all(/.*/, (req, res, next) => {
     next(new ExpressError(404, "Page not found"));
