@@ -1,3 +1,4 @@
+const { Resend } = require("resend");
 const passport = require("passport");
 const multer = require('multer');
 const { storage } = require("../cloudConfig.js");
@@ -12,7 +13,6 @@ const Schema = require("../model/schema.js");
 const ExpressError = require("../ExpressError.js");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-
 
 module.exports.adminSignup = async (req, res) => {
     let data = await village.find({});
@@ -207,20 +207,23 @@ module.exports.forgetPassPost = async (req, res) => {
 
     await user.save();
 
-    // Step 4: Send email with reset link
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
+    // // Step 4: Send email with reset link
+    // const transporter = nodemailer.createTransport({
+    //     service: "Gmail",
+    //     auth: {
+    //         user: process.env.EMAIL_USER,
+    //         pass: process.env.EMAIL_PASS
+    //     }
+    // });
 
     const resetURL = `http://${req.headers.host}/Admin/reset-password/${token}`;
 
-    const mailOptions = {
-        from: process.env.EMAIL,
-        to: user.email,
+try {
+    const resend = new Resend(process.env.API_KEY);
+
+    await resend.emails.send({
+        from: `Mera Gaav <onboarding@resend.dev>`,
+        to: process.env.EMAIL_USER,
         subject: "Mera Gaav | Password Reset",
         html: `
       <h3>Password Reset Request</h3>
@@ -237,9 +240,35 @@ module.exports.forgetPassPost = async (req, res) => {
    Reset Password
 </a>
     `
-    };
+    });
+      console.log("Email sent successfully!");
+} catch (err) {
+      console.error("Failed to send email:", err);
+}
 
-    await transporter.sendMail(mailOptions);
+    
+    //     const mailOptions = {
+    //         from: process.env.EMAIL,
+    //         to: user.email,
+    //         subject: "Mera Gaav | Password Reset",
+    //         html: `
+    //       <h3>Password Reset Request</h3>
+    //       <p>Click the link below to reset your password. This link will expire in 1 hour.</p>
+
+    //       <a href="${resetURL}" 
+    //    style="display:inline-block;
+    //           padding:12px 20px;
+    //           background-color:#007BFF;
+    //           color:#ffffff;
+    //           text-decoration:none;
+    //           border-radius:6px;
+    //           font-weight:bold;">
+    //    Reset Password
+    // </a>
+    //     `
+    //     };
+
+    //     await transporter.sendMail(mailOptions);
     req.flash("success", "Password reset link sent to your email.");
     res.redirect("/Admin/login");
 }
