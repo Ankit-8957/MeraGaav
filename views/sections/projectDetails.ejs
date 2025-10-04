@@ -57,35 +57,44 @@
       </div>
 
       <!-- Milestones -->
-<% if (pro.milestones && pro.milestones.length > 0) { %>
-  <div class="project-section">
-    <h5>Milestones:</h5>
-    <% pro.milestones.forEach(milestone => { %>
-      <form action="/admin/project/<%= pro._id %>/milestone/<%= milestone._id %>/toggle" method="POST" class="milestone-card d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
-        
-        <!-- Milestone name -->
-        <span><strong><%= milestone.name %></strong></span>
+      <% if (pro.milestones && pro.milestones.length> 0) { %>
+        <div class="project-section">
+          <h5>Milestones:</h5>
+          <% pro.milestones.forEach(milestone=> { %>
+            <form action="/admin/project/<%= pro._id %>/milestone/<%= milestone._id %>/toggle" method="POST"
+              class="milestone-card d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
 
-        <!-- Status + Checkbox -->
-        <div class="d-flex align-items-center gap-2">
-          <span class="badge <%= milestone.completed ? 'bg-success' : 'bg-warning text-dark' %>">
-            <%= milestone.completed ? 'Completed' : 'Pending' %>
-          </span>
-          <%if(currUser && currUser._id.equals(pro.admin._id)){%>
-            <input 
-            type="checkbox" 
-            name="completed" 
-            value="true" 
-            onchange="this.form.submit()" 
-            <%= milestone.completed ? 'checked' : '' %>
-          >
-          <%}%>
-          
+              <!-- Milestone name -->
+              <span><strong>
+                  <%= milestone.name %>
+                </strong></span>
+
+              <!-- Status + Checkbox -->
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge <%= milestone.completed ? 'bg-success' : 'bg-warning text-dark' %>">
+                  <%= milestone.completed ? 'Completed' : 'Pending' %>
+                </span>
+                <%if(currUser && currUser._id.equals(pro.admin._id)){%>
+                  <input type="checkbox" name="completed" value="true" onchange="this.form.submit()"
+                    <%=milestone.completed ? 'checked' : '' %>
+                  >
+                  <%}%>
+
+              </div>
+            </form>
+            <% }) %>
+              <!-- Voting Section -->
+              <div class="project-section text-center mt-4">
+                <h5>Support this Project</h5>
+                <form action="/Admin/project/<%= pro._id %>/vote" method="POST">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    👍 Vote (<%= pro.votes %>)
+                  </button>
+                </form>
+              </div>
+
         </div>
-      </form>
-    <% }) %>
-  </div>
-<% } %>
+        <% } %>
 
 
           <!-- Images -->

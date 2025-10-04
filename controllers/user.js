@@ -65,6 +65,22 @@ module.exports.project = async(req, res) => {
     let projects = await project.find({village: userVillage.village});
     res.render("sections/project.ejs",{projects,user});
 }
+module.exports.projectVote = async (req, res) => {
+  let { id } = req.params;
+  let project = await Project.findById(id);
+
+  if (project.voters.includes(req.user._id)) {
+    req.flash("error", "You already voted for this project!");
+    return res.redirect(`"/project/${id}/projectDetail`);
+  }
+
+  project.votes += 1;
+  project.voters.push(req.user._id);
+
+  await project.save();
+  req.flash("success", "Thanks for voting!");
+  res.redirect(`/project/${id}/projectDetail`);
+}
 module.exports.budget = async(req, res) => {
     let budgets = await budget.find({});
     let user = await User.findById(req.user._id).populate("village");

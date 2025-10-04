@@ -24,15 +24,19 @@ const budget = require("./model/budget.js");
 const ExpressError = require("./ExpressError.js");
 const { asyncWrap } = require("./middleware.js");
 
-
-main().then(() => {
-    console.log("Database is connected!!");
-}).catch((err) => {
-    console.log(err);
-})
 async function main() {
-    await mongoose.connect(process.env.DB_URL);
+    try {
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            ssl: process.env.DB_SSL === "true" 
+        });
+        console.log("✅ Database is connected!!");
+    } catch (err) {
+        console.error("❌ Database connection error:", err);
+    }
 }
+
 
 app.engine('ejs', ejsMate);
 app.set("view engine", "ejs");

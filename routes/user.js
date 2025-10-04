@@ -25,6 +25,9 @@ router.get("/budget", isLoggedIn, asyncWrap(userController.budget));
 router.get("/complaint",isLoggedIn,asyncWrap(userController.complaint));
 router.post("/complaint",validateComplaint,asyncWrap(userController.complaintPost));
 router.get("/schema",isLoggedIn,asyncWrap(userController.schema));
+router.post("project/:id/vote", isLoggedIn,userController.projectVote );
+
+module.exports = router;
 router.get("/budget/:id/budgetDetail",isLoggedIn,asyncWrap(userController.budgetDetail));
 router.get("/project/:id/projectDetail",isLoggedIn,asyncWrap( userController.projectDetail));
 module.exports = router;

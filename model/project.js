@@ -42,7 +42,9 @@ const projectSchema = new Schema({
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Admin"
-    }
+    },
+    votes: { type: Number, default: 0 },
+    voters: [{ type: Schema.Types.ObjectId, ref: "User" }]
 });
 
 projectSchema.virtual("progress").get(function () {
