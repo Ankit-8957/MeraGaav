@@ -236,7 +236,7 @@ module.exports.comment = async (req, res) => {
         await newComment.save();
         pro.comments.push(newComment);
         pro.save();
-        return res.send("hello");
+        return res.redirect(`/project/${id}/comment`);
     }
 
 
