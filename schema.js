@@ -1,52 +1,52 @@
 const Joi = require("joi");
 
 const adminJoiSchema = Joi.object({
-  name: Joi.string()
-    .min(2)
-    .max(100)
-    .required(),
+  admin: Joi.object({
+    name: Joi.string()
+      .min(2)
+      .max(100)
+      .required(),
 
-  DOB: Joi.date()
-    .iso()
-    .less('now') // DOB must be in the past
-    .required(),
+    DOB: Joi.date()
+      .iso()
+      .less('now')
+      .required(),
 
-  gender: Joi.string()
-    .valid("Male", "Female", "Other")
-    .required(),
+    gender: Joi.string()
+      .valid("Male", "Female", "Other")
+      .required(),
 
-  phoneNumber: Joi.string()
-    .pattern(/^[6-9]\d{9}$/) // Indian mobile number
-    .required(),
+    phoneNumber: Joi.string()
+      .pattern(/^[6-9]\d{9}$/)
+      .message("Phone number must be 10 digits")
+      .required(),
 
-  address: Joi.string()
-    .min(5)
-    .max(200)
-    .required(),
+    address: Joi.string()
+      .min(5)
+      .max(200)
+      .required(),
 
-  aadhaar: Joi.string()
-    .pattern(/^\d{12}$/) // exactly 12 digits
-    .required(),
+    aadhaar: Joi.string()
+      .pattern(/^\d{12}$/)
+      .message("Aadhaar must be 12 digits")
+      .required(),
 
-  email: Joi.string()
-    .email({ tlds: { allow: false } }) // standard email validation
-    .required(), // optional
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required(),
 
-  voterId: Joi.string()
-    .pattern(/^[A-Z0-9]+$/) // only uppercase letters + numbers
-    .required(),
+    voterId: Joi.string()
+      .pattern(/^[A-Z0-9]+$/)
+      .required(),
+    village: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
 
-  image: Joi.string()
-    .uri()
-    .allow(null, ''),
-
-  village: Joi.string()
-    .hex()
-    .length(24) // MongoDB ObjectId
-    .required(),
+  }).required(),
+  username: Joi.string().min(4).max(20).required(),
+  password: Joi.string().min(6).required(),
+  confirmPassword: Joi.ref("password") // must match password
+}).with("password", "confirmPassword");
 
 
-});
 const complaintJoiSchema = Joi.object({
   villagerName: Joi.string()
     .min(2)
@@ -97,6 +97,10 @@ const userJoiSchema = Joi.object({
     .length(24)
     .required(),
 
+  email: Joi.string()
+    .email({ tlds: { allow: false } }) // standard email validation
+    .required(),
+
   isApproved: Joi.boolean().default(false),
 
   image: Joi.string()
@@ -108,8 +112,8 @@ const userJoiSchema = Joi.object({
 
   username: Joi.string(),
   password: Joi.string()
-    .min(8) // minimum 8 characters
-    .max(30) // maximum 30 characters
+    .min(8)
+    .max(30)
     .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$'))
     .required()
     .messages({

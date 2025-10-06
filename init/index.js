@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const projectData = require("./projectData.js");
 const Project = require("../model/project.js");
@@ -13,7 +14,7 @@ main().then(() => {
     console.log(err);
 })
 async function main() {
-    await mongoose.connect("mongodb+srv://yash0011pandey:6CchKjKhw7kM2CdX@cluster0.ynvpjhz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    await mongoose.connect("mongodb+srv://yash0011pandey:WoCObAkFsV8gw3k8@cluster0.s6tclvv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 }
 
 
@@ -35,6 +36,6 @@ const initComplaintData = async () =>{
     await complaint.insertMany(complaintData);
 }
 
-
+initVillData();
 initBudgetData();
 

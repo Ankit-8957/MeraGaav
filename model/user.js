@@ -12,13 +12,22 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // basic email validation
+  },
   image: {
     type: String
   },
   role: {
     type: String,
     default: "user"
-  }
+  },
+  resetToken: String,
+  resetTokenExpiry: Date
 });
 
 userSchema.plugin(passportLocalMongoose);

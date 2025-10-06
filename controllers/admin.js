@@ -12,7 +12,7 @@ const budget = require("../model/budget.js");
 const Schema = require("../model/schema.js");
 const ExpressError = require("../ExpressError.js");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
+
 
 module.exports.adminSignup = async (req, res) => {
     let data = await village.find({});
@@ -20,6 +20,15 @@ module.exports.adminSignup = async (req, res) => {
 }
 module.exports.adminSignupPost = async (req, res) => {
     let { username, password, admin: adminDetails } = req.body;
+   if(!req.file){
+    req.flash("error","Image field is empty");
+    return res.redirect("/Admin/signup");
+   }
+   const existingAdmin = await admin.findOne({ village: adminDetails.village });
+    if (existingAdmin) {
+      req.flash("error", "An admin already exists for this village!");
+      return res.redirect("/admin/signup");
+    }
     const newAdmin = new admin({
         ...adminDetails,
         username,
@@ -107,10 +116,10 @@ module.exports.newProjectPost = async (req, res) => {
         if (!Array.isArray(project.milestones)) {
             project.milestones = [project.milestones];
         }
-        project.milestones = project.milestones.map(m => ({
-            name: m,
-            completed: false
-        }));
+        project.milestones = project.milestones
+            .map(m => m.trim())           
+            .filter(m => m.length > 0)    
+            .map(m => ({ name: m, completed: false }));
     }
     let images = [];
     if (req.files && req.files.length > 0) {
@@ -183,7 +192,13 @@ module.exports.budgetDetails = async (req, res) => {
 
 module.exports.projectDetails = async (req, res) => {
     let { id } = req.params;
-    let pro = await Project.findById(id).populate("village");
+     let pro = await Project.findById(id)
+        .populate({
+            path: "comments", 
+            populate: {
+                path: "user"
+            }
+        });
     res.render("sections/projectDetails.ejs", { pro });
 }
 module.exports.forgetPass = (req, res) => {
@@ -206,15 +221,6 @@ module.exports.forgetPassPost = async (req, res) => {
     user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry
 
     await user.save();
-
-    // // Step 4: Send email with reset link
-    // const transporter = nodemailer.createTransport({
-    //     service: "Gmail",
-    //     auth: {
-    //         user: process.env.EMAIL_USER,
-    //         pass: process.env.EMAIL_PASS
-    //     }
-    // });
 
     const resetURL = `http://${req.headers.host}/Admin/reset-password/${token}`;
 
@@ -246,29 +252,6 @@ try {
       console.error("Failed to send email:", err);
 }
 
-    
-    //     const mailOptions = {
-    //         from: process.env.EMAIL,
-    //         to: user.email,
-    //         subject: "Mera Gaav | Password Reset",
-    //         html: `
-    //       <h3>Password Reset Request</h3>
-    //       <p>Click the link below to reset your password. This link will expire in 1 hour.</p>
-
-    //       <a href="${resetURL}" 
-    //    style="display:inline-block;
-    //           padding:12px 20px;
-    //           background-color:#007BFF;
-    //           color:#ffffff;
-    //           text-decoration:none;
-    //           border-radius:6px;
-    //           font-weight:bold;">
-    //    Reset Password
-    // </a>
-    //     `
-    //     };
-
-    //     await transporter.sendMail(mailOptions);
     req.flash("success", "Password reset link sent to your email.");
     res.redirect("/Admin/login");
 }
@@ -364,7 +347,7 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.userDetails = async (req, res) => {
     let { id } = req.params;
     let detail = await User.findById(id).populate("village");
-    console.log(detail);
+    
 
     res.render("sections/userDetails.ejs", { detail });
 }

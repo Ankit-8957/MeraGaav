@@ -12,7 +12,7 @@ const adminController = require("../controllers/admin.js");
 
 router.get("/signup", adminController.adminSignup);
 
-router.post("/signup", upload.single("image"), validateAdmin, asyncWrap(adminController.adminSignupPost));
+router.post("/signup", upload.single("admin[image]"), validateAdmin, asyncWrap(adminController.adminSignupPost));
 
 router.get("/login", adminController.login);
 

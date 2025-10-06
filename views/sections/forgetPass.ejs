@@ -27,7 +27,7 @@
           <%= error %>
         </div>
       <% } %>
-
+        <div class="alert alert-danger"> <b>Note</b>: this feature is built with Resend, so the sender must be verified on Resend. During the demo I use a dummy account — the entered email is checked in the database, but messages are forwarded to my test address to show the feature in action.</div>
       <form action="/Admin/forgot-password" method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">Enter your email</label>

@@ -14,10 +14,12 @@ module.exports.asyncWrap = function(fn) {
     fn(req, res, next).catch(err => next(err));
   }
 };
-module.exports.validateAdmin = (req,res,next)=>{
-  let {error} = adminJoiSchema.validate(req.body.admin);
+module.exports.validateAdmin = (req,res,next)=>{ 
+  let {error} = adminJoiSchema.validate(req.body);
     if(error){
-        throw new ExpressError(400,error)
+      req.flash("error",error.message);
+      res.redirect("/Admin/signup");
+        // throw new ExpressError(400,error)
     }else{
       next();
     }
@@ -25,7 +27,9 @@ module.exports.validateAdmin = (req,res,next)=>{
 module.exports.validateUser = (req,res,next)=>{
   let {error} = userJoiSchema.validate(req.body);
     if(error){
-        throw new ExpressError(400,error)
+      req.flash("error",error.message)
+      res.redirect("/user/signup")
+      // throw new ExpressError(400,error)
     }else{
       next();
     }

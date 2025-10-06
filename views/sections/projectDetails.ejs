@@ -83,16 +83,6 @@
               </div>
             </form>
             <% }) %>
-              <!-- Voting Section -->
-              <div class="project-section text-center mt-4">
-                <h5>Support this Project</h5>
-                <form action="/Admin/project/<%= pro._id %>/vote" method="POST">
-                  <button type="submit" class="btn btn-primary btn-lg">
-                    👍 Vote (<%= pro.votes %>)
-                  </button>
-                </form>
-              </div>
-
         </div>
         <% } %>
 
@@ -111,6 +101,46 @@
 
 
     </div>
+
+    <div class="project-section comment-section mt-5">
+      <h5 class="mb-3 text-center">Comments</h5>
+      <% if (pro.comments && pro.comments.length> 0) { %>
+        <div class="comment-list">
+          <% pro.comments.forEach(comment=> { %>
+            <div class="comment-card p-3 mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong>
+                  <%= comment.user ? comment.user.fullname : "Anonymous" %>
+                </strong>
+                <small class="text-muted">
+                  <%= new Date(comment.createdAt).toLocaleDateString("en-GB", { day: "2-digit" , month: "short" ,
+                    year: "numeric" }) %>
+                </small>
+              </div>
+              <p class="mt-2 mb-0">
+                <%= comment.text %>
+              </p>
+            </div>
+            <% }) %>
+        </div>
+        <% } else { %>
+          <p class="text-muted text-center">No comments yet. Be the first to share your thoughts!</p>
+          <% } %>
+
+          <%if(currUser && currUser.role == "user"){%>
+            <form action="/user/project/<%= pro._id %>/comment" method="POST" class="mt-4 comment-form">
+              <div class="mb-3">
+                <textarea class="form-control" name="description" rows="3" placeholder="Write your comment..."
+                  required></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success px-4">Post Comment</button>
+              </div>
+            </form>
+          <%}%>
+            
+    </div>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
